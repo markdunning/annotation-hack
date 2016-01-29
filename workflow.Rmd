@@ -1,0 +1,30 @@
+---
+title: "Workflow"
+author: "Mark Dunning"
+date: "29 January 2016"
+output: html_document
+---
+
+
+```{r}
+library(GEOquery)
+gpl <- getGEO("GPL10558")
+
+library(Biostrings)
+seqdata <- DNAStringSet(gpl@dataTable@table$SEQUENCE)
+names(seqdata) <- gpl@dataTable@table$ID
+writeXStringSet(seqdata,filepath="GPL10558.fa",format="fasta")
+```
+
+```{r}
+library(BSgenome.Hsapiens.UCSC.hg19)
+genome <- BSgenome.Hsapiens.UCSC.hg19::Hsapiens
+export(genome, "hg19.fasta")
+```
+
+
+```{r}
+library(Rsubread)
+buildIndex(basename="hg19",reference="hg19.fasta")
+```
+
