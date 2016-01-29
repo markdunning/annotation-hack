@@ -25,6 +25,21 @@ export(genome, "hg19.fasta")
 
 ```{r}
 library(Rsubread)
-buildIndex(basename="hg19",reference="hg19.fasta")
+buildindex(basename="hg19",reference="hg19.fasta")
+```
+
+
+
+```{r}
+align(index="hg19",readfile1 = "GPL10558.fa")
+```
+
+```{r}
+library(GenomicAlignments)
+probemapping <- readGAlignments("GPL10558.fa.subread.BAM")
+```
+
+```{r}
+library(TxDb.Hsapiens.UCSC.hg19.knownGene)
 ```
 
